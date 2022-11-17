@@ -3,6 +3,16 @@
 {% block body %}
     <div class="jumbotron">
         <div class="container">
+            {% for message in app.flashes("succes") %}
+         <div class="alert alert-success">
+            {{ message }}
+         </div>
+      {% endfor %}
+      {% if not form.vars.valid %}
+      <div class="alert alert-danger">
+      Verirfier bien les informaions que vous entrez
+      </div>
+      {% endif %}
             <div class="row">
                 <div class="col-md-8">
     {% if property.filename %}
@@ -28,10 +38,26 @@
                     <a href="#" class="btn-primary">
                         Contacter nous
                     </a>
+                    <div id="contactForm" class="mt-4">
+                    {{form_start(form)}}
+                    <div class="row"
+                    <div class="col">{{ form_row(form.firstname) }} </div>
+                    <div class="col">{{ form_row(form.lastname) }} </div>
+                    </div>
+                    <div class="row"
+                    <div class="col">{{ form_row(form.phone) }} </div>
+                    <div class="col">{{ form_row(form.email) }} </div>
+                    </div>
+                    {{form_rest(form)}} 
+                    <div class="form-group">
+                   <button class="btn btn-primary">Envoyer</button>
+                   </div>
+                    {{form_end(form)}}
                 </div>
             </div>
         </div>
     </div>
+</div>
     <div class="container  mt-4">
         <p>
             {{ property.description | nl2br }}
